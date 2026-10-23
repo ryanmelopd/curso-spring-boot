@@ -3,24 +3,20 @@ package br.com.api.curso_spring_boot.database.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
-
 @Entity
-@Table(name = "avaliacoes fisicas")
+@Table(name = "exercicios")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
-public class AvaliacoesFisicasEntity {
+public class ExercicioEntity {
 
     @Id // CHAVE PRIMÁRIA
     @GeneratedValue(strategy = GenerationType.IDENTITY) // GERA AUTOMATICAMENTE ID NOVO
     private Integer id;
     @Column(nullable = false)
-    private BigDecimal peso;
-    @Column(nullable = false)
-    private BigDecimal altura;
-    @Column(name = "percentual_gordura_corporal", nullable = false)
-    private BigDecimal porcentagemGorduraCorporal;
+    private String nome;
+    @Column(name = "grupo_muscular", nullable = false)
+    private String grupoMuscular;
 }

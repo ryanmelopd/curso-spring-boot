@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-public class AlunosEntity {
+public class TreinoEntity {
 
     @Id // CHAVE PRIMÁRIA
     @GeneratedValue(strategy = GenerationType.IDENTITY) // GERA AUTOMATICAMENTE ID NOVO
@@ -23,10 +23,16 @@ public class AlunosEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "avaliacao_fisica_id")
-    private AvaliacoesFisicasEntity avaliacoesFisica;
+    @ManyToOne
+    @JoinColumn(name = "aluno_id")
+    private AlunoEntity aluno;
 
-    @OneToMany(mappedBy = "aluno")
-    private Set<TreinosEntity> treinos = new HashSet<>();
+    // DIVERSOS TREINOS COM DIVERSOS EXERCÍCIOS
+   @ManyToMany
+   @JoinTable(
+            name = "treinos_exercicios",
+            joinColumns = @JoinColumn(name = "treino_id"),
+            inverseJoinColumns = @JoinColumn(name = "exercicio_id")
+   )
+    private Set<ExercicioEntity> exercicios = new HashSet<>();
 }

@@ -1,5 +1,6 @@
 package br.com.api.curso_spring_boot.handler;
 
+import br.com.api.curso_spring_boot.exception.BadRequestException;
 import br.com.api.curso_spring_boot.exception.ErrorResponse;
 import br.com.api.curso_spring_boot.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponse> handleBadRequestException(BadRequestException ex) {
+        ErrorResponse response = ErrorResponse.builder()
+                .message(ex.getMessage())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex) {
